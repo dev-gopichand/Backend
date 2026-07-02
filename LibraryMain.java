@@ -17,9 +17,9 @@ public class LibraryMain {
         library.addBook(book4);
         Reader reader1 = new Reader("Alice", "alice@example.com");
         System.out.println(reader1.requestBook(library, "Pride and Prejudice","Jane Austen"));
-        System.out.println(reader1.borrowedBooks());
-        reader1.returnBook(library, book4);
-        System.out.println(reader1.borrowedBooks());
+        System.out.println(reader1.requestBook(library, "The Great Gatsby","F. Scott Fitzgerald"));
+        System.out.println(reader1.booksAvailable(library));
+        System.out.println(reader1.returnBook(library, new Book("AI BOOK","AI")));
 
     }
 }

@@ -6,17 +6,27 @@ import java.util.List;
 
 public class Library {
     private List<Book> books = new ArrayList<>();
+    private List<Reader> readers = new ArrayList<>();
 
     public void addBook(Book book){
         books.add(book);
     }
 
     public List<Book> booksAvailable(){
-        System.out.println("==== These are the available books =====");
-        return books;
+        List<Book> booksAvailableToIssue = new ArrayList<>();
+        for (Book book : books){
+            if (!book.isIssued()){
+                booksAvailableToIssue.add(book);
+            }
+        }
+        return booksAvailableToIssue;
     }
 
-    public Book issueBook(String title, String author){
+    public Book issueBook(Reader reader, String title, String author){
+        if (reader.borrowedBooks().size() == 3){
+            System.out.println("Borrowing limit is reached");
+            return null;
+        }
         for (int i = 0; i < books.size(); i++){
             Book currentBook = books.get(i);
             if (title.equals(currentBook.getTitle()) && author.equals(currentBook.getAuthor()) && currentBook.isIssued() != true){
@@ -29,8 +39,13 @@ public class Library {
         return null;
     }
 
-    public void returnBook(Book book) {
-        book.markReturned();
-        System.out.println("Book is returned");
+    public boolean returnBook(Book book) {
+        for (Book currentBook : books){
+            if (currentBook.equals(book) && currentBook.isIssued()){
+                book.markReturned();
+                return true;
+            }
+        }
+        return false;
     }
 }
