@@ -7,7 +7,7 @@ public class Reader {
     private String name;
     private String email;
 
-    private List<Book> booksReceived = new ArrayList<>();
+    private List<Book> borrowedBooks = new ArrayList<>();
 
     public Reader(String name, String email){
         this.name = name;
@@ -35,23 +35,29 @@ public class Reader {
         return "Reader [name=" + name + ", email=" + email + "]";
     }
 
-    public void requestBook(Library library, Book book){
-        boolean issued = library.issueBook(book);
-        if (issued){
-            booksReceived(book);
+    public Book requestBook(Library library, String title, String author){
+        Book book = library.issueBook(title, author);
+        if (book != null){
+            addBook(book);
         }
+        return book;  
     }
 
     public void returnBook(Library library, Book book){
         library.returnBook(book);
-        booksReceived.remove(book);
+        borrowedBooks.remove(book);
     }
 
-    public void booksAvailable(Library library) {
-        library.booksAvailable();
+    public List<Book> booksAvailable(Library library) {
+        return library.booksAvailable();
     }
 
-    public void booksReceived(Book book) {
-        booksReceived.add(book);
+    public void addBook(Book book) {
+        borrowedBooks.add(book);
+    }
+
+    public List<Book> borrowedBooks(){
+        System.out.println("===== Viewing Borrowed Books ======");
+        return borrowedBooks;
     }
 }

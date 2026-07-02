@@ -12,21 +12,21 @@ public class Library {
     }
 
     public List<Book> booksAvailable(){
+        System.out.println("==== These are the available books =====");
         return books;
     }
 
-    public boolean issueBook(Book book){
+    public Book issueBook(String title, String author){
         for (int i = 0; i < books.size(); i++){
-            if (book.getTitle().equals(books.get(i).getTitle()) && book.getAuthor().equals(books.get(i).getAuthor()) && books.get(i).isIssued() != true){
-                books.get(i).markIssued();
+            Book currentBook = books.get(i);
+            if (title.equals(currentBook.getTitle()) && author.equals(currentBook.getAuthor()) && currentBook.isIssued() != true){
                 System.out.println("Book issued successfully.");
-                break;
+                currentBook.markIssued();
+                return currentBook;
             }
         }
-        if (!book.isIssued()){
-            System.out.println("Book not found or already issued.");
-        }
-        return false;
+        System.out.println("Book not found or already issued.");
+        return null;
     }
 
     public void returnBook(Book book) {

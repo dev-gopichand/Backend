@@ -16,10 +16,10 @@ public class LibraryMain {
         library.addBook(book3);
         library.addBook(book4);
         Reader reader1 = new Reader("Alice", "alice@example.com");
-        reader1.requestBook(library, book4);
-        Reader reader2 = new Reader("Gopi", "gopi@gmail.com");
-        reader2.booksAvailable(library);
+        System.out.println(reader1.requestBook(library, "Pride and Prejudice","Jane Austen"));
+        System.out.println(reader1.borrowedBooks());
         reader1.returnBook(library, book4);
-        reader2.booksAvailable(library);
+        System.out.println(reader1.borrowedBooks());
+
     }
 }
